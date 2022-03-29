@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_LayoutHome";
+    ViewData["Title"] = "Index";
+}
+
+
+<style>
+    .container {
+        width: 260px;
+        display: grid;
+        grid-template-areas: "main main";
+
+    }
+
+    .itens{
+        text-decoration: none;
+        grid-area: "main";
+    }
+
+</style>
+
+
+        <div class="image" style=" background-color: blue; width: 260px; height: 340px"></div>
+        <div class="container">
+            <a class="item" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+            <a class="item" asp-area="Identity" asp-page="/Account/Register">Cadastrar-se</a>
+        </div>        
+
+
+
