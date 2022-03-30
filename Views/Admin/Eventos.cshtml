@@ -1,0 +1,27 @@
+@model IEnumerable<DesafioMVC.Models.Evento>
+@{
+    Layout = "_Layout";
+}
+
+<script>
+    $(document).ready( function () {
+    $('#eventos').DataTable({
+        "info": false,
+        "language": {"search": "Buscar:",
+                     "lengthMenu": "Mostrando _MENU_ registros por página",
+                     "zeroRecords": "Nada encontrado.", 
+                     "paginate": {
+                        "first":      "Primeiro",
+                        "last":       "Último",
+                        "next":       "Próximo",
+                        "previous":   "Anterior"
+                        }
+                    }
+        });
+    });
+</script>
+
+<h4>Eventos</h4>
+<hr>
+<a class="btn btn-dark" asp-controller="Admin" asp-action="CadastrarEvento">Cadastrar</a>
+

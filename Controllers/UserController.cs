@@ -18,7 +18,7 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Index()
         {
-            return Content("Chegou user");
+            return View();
         }
     }
 }

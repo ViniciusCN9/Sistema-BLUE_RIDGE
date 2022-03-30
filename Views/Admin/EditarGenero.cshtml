@@ -1,0 +1,14 @@
+@model DesafioMVC.DTO.GeneroDTO
+@{
+    Layout = "_Layout";
+}
+<h4>Atualizar gêneros</h4>
+<hr>
+<form class="form-horizontal" asp-controller="Generos" asp-action="Atualizar" method="POST">
+    <input type="hidden" asp-for="Id">
+    <label asp-for="Nome">Nome</label>
+    <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Samba">
+    <span asp-validation-for="Nome"></span>
+    <br>
+    <button class="btn btn-success">Atualizar</button>
+</form>

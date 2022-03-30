@@ -15,6 +15,6 @@ namespace DesafioMVC.Models
         public Estabelecimento Estabalecimento { get; set; }
         public Genero Genero { get; set; }
         public string ImagemUrl { get; set; }
-
+        public bool Status { get; set; }
     }
 }

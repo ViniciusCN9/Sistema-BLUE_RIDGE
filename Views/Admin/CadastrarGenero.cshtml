@@ -1,0 +1,14 @@
+@model DesafioMVC.DTO.GeneroDTO
+@{
+    Layout = "_Layout";
+}
+<h4>Cadastrar gêneros</h4>
+<hr>
+<form class="form-horizontal" asp-controller="Generos" asp-action="Salvar" method="POST">
+    <input type="hidden" asp-for="Id" value="0">
+    <label asp-for="Nome">Nome</label>
+    <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Samba">
+    <span asp-validation-for="Nome"></span>
+    <br>
+    <button class="btn btn-success">Cadastrar</button>
+</form>
