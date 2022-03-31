@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DesafioMVC.DTO
 {
@@ -31,13 +32,12 @@ namespace DesafioMVC.DTO
         public float ValorIngresso { get; set; }
 
         [Required]
-        public int EstabalecimentoId { get; set; }
+        public int EstabelecimentoId { get; set; }
 
         [Required]
         public int GeneroId { get; set; }
 
-        [Required]
-        [DataType(DataType.Url)]
-        public string ImagemUrl { get; set; }        
+        public IFormFile ImagemUrl { get; set; }        
+        public string ImagemUrlString { get; set; }        
     }
 }

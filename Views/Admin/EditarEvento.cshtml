@@ -1,0 +1,38 @@
+@model DesafioMVC.DTO.EventoDTO
+@{
+    Layout = "_Layout";
+}
+
+<h4>Atualizar evento</h4>
+<hr>
+<form class="form-horizontal" enctype="multipart/form-data" asp-controller="Eventos" asp-action="Atualizar" method="POST">
+    <input type="hidden" asp-for="Id">
+    <label asp-for="Nome">Nome</label>
+    <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Show do Fulano">
+    <span asp-validation-for="Nome"></span>
+    <br>
+    <label asp-for="Capacidade">Capacidade</label>
+    <input type="number" asp-for="Capacidade" class="form-control" min="1" max="2147483647" placeholder="Ex: 999">
+    <span asp-validation-for="Capacidade"></span>
+    <br>
+    <label asp-for="Data">Data e hora</label>
+    <input type="datetime-local" asp-for="Data" class="form-control" min="@ViewBag.DataAtual">
+    <span asp-validation-for="Data"></span>
+    <br>
+    <label asp-for="ValorIngresso">Valor do ingresso</label>
+    <input type="text" asp-for="ValorIngresso" class="form-control" placeholder="XX XXXX XXXX">
+    <span asp-validation-for="ValorIngresso"></span>
+    <br>
+    <label asp-for="EstabelecimentoId">Estabelecimento</label>
+    <select class="form-control" asp-for="EstabelecimentoId" asp-items='@(new SelectList(@ViewBag.Estabelecimentos,"Id","Nome"))'></select>
+    <br>
+    <label asp-for="GeneroId">Gênero musical</label>
+    <select class="form-control" asp-for="GeneroId" asp-items='@(new SelectList(@ViewBag.Generos,"Id","Nome"))'></select>
+    <br>
+    <label asp-for="ImagemUrl">Atualizar imagem</label>
+    <input type ="file" asp-for="ImagemUrl" class="form-control">
+    <span asp-validation-for="ImagemUrl"></span>
+    <input type="hidden" asp-for="ImagemUrlString">
+    <br>
+    <button class="btn btn-success">Atualizar</button>
+</form>

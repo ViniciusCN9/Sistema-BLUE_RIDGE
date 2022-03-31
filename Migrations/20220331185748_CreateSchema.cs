@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DesafioMVC.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class CreateSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -241,17 +241,18 @@ namespace DesafioMVC.Migrations
                     Capacidade = table.Column<int>(type: "int", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ValorIngresso = table.Column<float>(type: "float", nullable: false),
-                    EstabalecimentoId = table.Column<int>(type: "int", nullable: true),
+                    EstabelecimentoId = table.Column<int>(type: "int", nullable: true),
                     GeneroId = table.Column<int>(type: "int", nullable: true),
                     ImagemUrl = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Eventos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Eventos_Estabelecimentos_EstabalecimentoId",
-                        column: x => x.EstabalecimentoId,
+                        name: "FK_Eventos_Estabelecimentos_EstabelecimentoId",
+                        column: x => x.EstabelecimentoId,
                         principalTable: "Estabelecimentos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -302,9 +303,9 @@ namespace DesafioMVC.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eventos_EstabalecimentoId",
+                name: "IX_Eventos_EstabelecimentoId",
                 table: "Eventos",
-                column: "EstabalecimentoId");
+                column: "EstabelecimentoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Eventos_GeneroId",

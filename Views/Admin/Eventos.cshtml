@@ -25,3 +25,40 @@
 <hr>
 <a class="btn btn-dark" asp-controller="Admin" asp-action="CadastrarEvento">Cadastrar</a>
 
+<table id="eventos" class="table table-dark table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Capacidade</th>
+            <th>Data e Hora</th>
+            <th>Valor do ingresso</th>
+            <th>Estabelecimento</th>
+            <th>Gênero musical</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evento in Model)
+        {
+            <tr>
+                <td class="text-center"><img src="~/Assets/img/@evento.ImagemUrl" height="80" width="80"/></td>
+                <td>@evento.Id</td>
+                <td>@evento.Nome</td>
+                <td>@evento.Capacidade</td>
+                <td>@evento.Data.ToString().Substring(0,16)</td>
+                <td>@evento.ValorIngresso.ToString("c")</td>
+                <td>@evento.Estabelecimento.Nome</td>
+                <td>@evento.Genero.Nome</td>
+                <td class="text-center">
+                    <a class="btn btn-primary" href="/Admin/EditarEvento/@evento.Id">Editar</a>
+                    <form asp-controller="Eventos" asp-action="Deletar" method= "POST" style="display: inline;">
+                        <input type="hidden" name="id" id="id" value="@evento.Id">
+                        <button class="btn btn-danger">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

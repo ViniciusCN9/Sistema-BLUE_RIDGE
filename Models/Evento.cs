@@ -12,7 +12,7 @@ namespace DesafioMVC.Models
         public int Capacidade { get; set; }
         public DateTime Data { get; set; }
         public float ValorIngresso { get; set; }
-        public Estabelecimento Estabalecimento { get; set; }
+        public Estabelecimento Estabelecimento { get; set; }
         public Genero Genero { get; set; }
         public string ImagemUrl { get; set; }
         public bool Status { get; set; }

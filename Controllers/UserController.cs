@@ -13,7 +13,7 @@ namespace DesafioMVC.Controllers
 
         public UserController(ApplicationDbContext database)
         {
-            this.Database = database;
+            Database = database;
         }
 
         public IActionResult Index()

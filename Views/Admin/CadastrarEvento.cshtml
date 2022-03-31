@@ -5,7 +5,7 @@
 
 <h4>Cadastrar evento</h4>
 <hr>
-<form class="form-horizontal" asp-controller="Eventos" asp-action="Salvar" method="POST">
+<form class="form-horizontal" enctype="multipart/form-data" asp-controller="Eventos" asp-action="Salvar" method="POST">
     <input type="hidden" asp-for="Id" value="0">
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Show do Fulano">
@@ -23,14 +23,15 @@
     <input type="text" asp-for="ValorIngresso" class="form-control" placeholder="XX XXXX XXXX">
     <span asp-validation-for="ValorIngresso"></span>
     <br>
-    <label asp-for="EstabalecimentoId">Estabelecimento</label>
-
+    <label asp-for="EstabelecimentoId">Estabelecimento</label>
+    <select class="form-control" asp-for="EstabelecimentoId" asp-items='@(new SelectList(@ViewBag.Estabelecimentos,"Id","Nome"))'></select>
     <br>
     <label asp-for="GeneroId">Gênero musical</label>
-
+    <select class="form-control" asp-for="GeneroId" asp-items='@(new SelectList(@ViewBag.Generos,"Id","Nome"))'></select>
     <br>
-    <label asp-for="ImagemUrl">Imagem</label>
-
+    <label asp-for="ImagemUrl">Inserir imagem</label>
+    <input type ="file" asp-for="ImagemUrl" class="form-control">
+    <span asp-validation-for="ImagemUrl"></span>
     <br>
     <button class="btn btn-success">Cadastrar</button>
 </form>

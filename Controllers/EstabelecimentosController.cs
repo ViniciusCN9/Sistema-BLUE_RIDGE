@@ -15,7 +15,7 @@ namespace DesafioMVC.Controllers
 
         public EstabelecimentosController(ApplicationDbContext database)
         {
-            this.Database = database;
+            Database = database;
         }
 
         [HttpPost]

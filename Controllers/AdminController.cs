@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
@@ -14,7 +15,7 @@ namespace DesafioMVC.Controllers
 
         public AdminController(ApplicationDbContext database)
         {
-            this.Database = database;
+            Database = database;
         }
 
         public IActionResult Index()
@@ -71,19 +72,35 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Eventos()
         {
-            var eventos = Database.Eventos.Where(e => e.Status);
+            var eventos = Database.Eventos.Where(e => e.Status).Include(e => e.Estabelecimento).Include(e => e.Genero);
             return View(eventos);
         }
 
         public IActionResult CadastrarEvento()
         {
             ViewBag.DataAtual = DateTime.Now.ToString("s").Substring(0,16);
+            ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+            ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
             return View();
         }
 
-        public IActionResult EditarEvento()
+        public IActionResult EditarEvento(int id)
         {
-            return View();
+            var evento = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).First(e => e.Id == id);
+
+            EventoDTO eventoView = new EventoDTO();
+            eventoView.Id = evento.Id;
+            eventoView.Nome = evento.Nome;
+            eventoView.Capacidade = evento.Capacidade;
+            eventoView.Data = evento.Data;
+            eventoView.ValorIngresso = evento.ValorIngresso;
+            eventoView.EstabelecimentoId = evento.Estabelecimento.Id;
+            eventoView.GeneroId = evento.Genero.Id;
+            eventoView.ImagemUrlString = evento.ImagemUrl; 
+
+            ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+            ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList(); 
+            return View(eventoView);
         }
     }
 }

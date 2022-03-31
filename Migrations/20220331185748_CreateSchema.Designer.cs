@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220329141215_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20220331185748_CreateSchema")]
+    partial class CreateSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,7 +57,7 @@ namespace DesafioMVC.Migrations
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("EstabalecimentoId")
+                    b.Property<int?>("EstabelecimentoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("GeneroId")
@@ -69,12 +69,15 @@ namespace DesafioMVC.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<float>("ValorIngresso")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstabalecimentoId");
+                    b.HasIndex("EstabelecimentoId");
 
                     b.HasIndex("GeneroId");
 
@@ -296,15 +299,15 @@ namespace DesafioMVC.Migrations
 
             modelBuilder.Entity("DesafioMVC.Models.Evento", b =>
                 {
-                    b.HasOne("DesafioMVC.Models.Estabelecimento", "Estabalecimento")
+                    b.HasOne("DesafioMVC.Models.Estabelecimento", "Estabelecimento")
                         .WithMany()
-                        .HasForeignKey("EstabalecimentoId");
+                        .HasForeignKey("EstabelecimentoId");
 
                     b.HasOne("DesafioMVC.Models.Genero", "Genero")
                         .WithMany()
                         .HasForeignKey("GeneroId");
 
-                    b.Navigation("Estabalecimento");
+                    b.Navigation("Estabelecimento");
 
                     b.Navigation("Genero");
                 });
