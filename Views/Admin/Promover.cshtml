@@ -1,0 +1,17 @@
+@model DesafioMVC.DTO.PromoverDTO 
+@{
+    Layout = "_Layout";
+}
+          
+<h4>Promover usuário a administrador</h4>
+<hr>
+<form class="form-horizontal" asp-controller="Opcoes" asp-action="Promover" method= "POST">
+    <label asp-for="Nome">Nome</label>
+    <input type="text" asp-for="Nome" class="form-control" id="Nome">
+    <br>
+    <label asp-for="Email">Email</label>
+    <input type="text" asp-for="Email" class="form-control" id="Email">
+    <br>
+    <button class="btn btn-success">Promover</button>
+</form>
+

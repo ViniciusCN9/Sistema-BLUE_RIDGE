@@ -1,0 +1,53 @@
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUserClaim<string>>
+@{
+    Layout = "_Layout";
+}
+
+<script>
+    $(document).ready( function () {
+    $('#opcoes').DataTable({
+        "info": false,
+        "language": {"search": "Buscar:",
+                     "lengthMenu": "Mostrando _MENU_ registros por página",
+                     "zeroRecords": "Desculpa, Nada encontrado.", 
+                     "paginate": {
+                        "first":      "Primeiro",
+                        "last":       "Último",
+                        "next":       "Próximo",
+                        "previous":   "Anterior"
+                        }
+                    }
+        });
+    });
+</script>
+
+<h4>Opçoes de administrador</h4>
+<hr>
+<a class="btn btn-dark text-white" asp-controller="Admin" asp-action="Promover">Promover usuário a administrador</a>
+
+<table id="opcoes" class="table table-dark table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.ClaimValue</td>
+                <td>
+                    @if (!user.ClaimValue.Equals("admin"))
+                    {
+                    <form asp-controller="Opcoes" asp-action="Remover" method= "POST" style="display: inline;">
+                        <input type="hidden" name="id" id="id" value="@user.Id">
+                        <button class="btn btn-danger">Remover permissão de administrador</button>
+                    </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

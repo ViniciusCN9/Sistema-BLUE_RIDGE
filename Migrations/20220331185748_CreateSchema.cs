@@ -311,6 +311,36 @@ namespace DesafioMVC.Migrations
                 name: "IX_Eventos_GeneroId",
                 table: "Eventos",
                 column: "GeneroId");
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount" },
+                values: new object[] { "57379288-208b-4be0-a535-7c822ad9ef6a", "admin@admin.com", "ADMIN@ADMIN.COM", "admin@admin.com", "ADMIN@ADMIN.COM", true, "AQAAAAEAACcQAAAAEFcytqJ+zGrp1fe3NBL7ykSPc9o6D/yXwRdzIePCr+uuAUU0A/HfbJ9HM2LZoLAleA==", "L3CMCZZN7H4JQY3WUOIQL6DB4MZ5MFYO", "5c10b021-131c-4b47-addc-0a78c78c3ca4", null, false, false, null, true, 0});
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount" },
+                values: new object[] { "cb44887b-65be-4a77-8278-a055e1f49963", "user@user.com", "USER@USER.COM", "user@user.com", "USER@USER.COM", true, "AQAAAAEAACcQAAAAEFagqtcMVJXtW5flt5oQQ+QQhI6inuhHZOoGa3zvJxcdaOqp1z9UMXxAq7qyACiG4Q==", "MOSQJEIUQPJPTKCUMKMRYYMAXT2LZBXB", "5bf54297-4927-4cf9-9f8f-93632748629e", null, false, false, null, true, 0});
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserClaims",
+                columns: new [] { "Id", "UserId", "ClaimType", "ClaimValue" },
+                values: new object[] { 1, "57379288-208b-4be0-a535-7c822ad9ef6a", "Name", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserClaims",
+                columns: new [] { "Id", "UserId", "ClaimType", "ClaimValue" },
+                values: new object[] { 2, "57379288-208b-4be0-a535-7c822ad9ef6a", "Role", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserClaims",
+                columns: new [] { "Id", "UserId", "ClaimType", "ClaimValue" },
+                values: new object[] { 3, "cb44887b-65be-4a77-8278-a055e1f49963", "Name", "user" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserClaims",
+                columns: new [] { "Id", "UserId", "ClaimType", "ClaimValue" },
+                values: new object[] { 4, "cb44887b-65be-4a77-8278-a055e1f49963", "Role", "user" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

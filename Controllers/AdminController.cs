@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DesafioMVC.Data;
 using DesafioMVC.DTO;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -73,6 +74,8 @@ namespace DesafioMVC.Controllers
         public IActionResult Eventos()
         {
             var eventos = Database.Eventos.Where(e => e.Status).Include(e => e.Estabelecimento).Include(e => e.Genero);
+            ViewBag.VerificaEstabelecimentos = Database.Estabelecimentos.Where(e => e.Status).Count();
+            ViewBag.VerificaGeneros = Database.Generos.Where(e => e.Status).Count();
             return View(eventos);
         }
 
@@ -101,6 +104,23 @@ namespace DesafioMVC.Controllers
             ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
             ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList(); 
             return View(eventoView);
+        }
+
+        public IActionResult Opcoes()
+        {
+            var usuariosAdmin = Database.UserClaims.Where(e => e.ClaimType == "Role" && e.ClaimValue == "admin").ToList();
+            var usuariosAdminNomes = new List<IdentityUserClaim<string>>(); 
+            foreach(var usuarioAdmin in usuariosAdmin)
+            {
+                var usuarioAdminNome = Database.UserClaims.First(e => e.Id == (usuarioAdmin.Id -1));
+                usuariosAdminNomes.Add(usuarioAdminNome);
+            }
+            return View(usuariosAdminNomes);
+        }
+
+        public IActionResult Promover()
+        {
+            return View();
         }
     }
 }
