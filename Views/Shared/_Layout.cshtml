@@ -47,17 +47,22 @@
             </nav>
         </header>
         <div class="container">
-            <main role="main">
+            <main role="main" style="position: relative;">
                 @RenderBody()
             </main>
     </div>
+    <footer class="footer bg-dark text-white text-center">
+        <div class="container">
+            &copy; Blue Ridge - 2022
+        </div>
+    </footer>
     }
     else
     {
         <header >
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-0 box-shadow">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="~/logos/logo_transparent_background.png" width="50" height="60">
+                    <img src="~/logos/logo_transparent_background.png" width="50" height="auto">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -84,18 +89,18 @@
                 </div>
             </nav>
         </header>
-        <div class="container-fluid m-0 p-0" style="">
+        <div class="container-fluid m-0 p-0" style="height: 100%;">
             <main role="main">
                 @RenderBody()
             </main>
         </div>
-    }
-
     <footer class="footer bg-dark text-white text-center">
         <div class="container">
             &copy; Blue Ridge - 2022
         </div>
     </footer>
+    }
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
