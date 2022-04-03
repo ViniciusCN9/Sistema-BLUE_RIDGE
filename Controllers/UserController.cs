@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DesafioMVC.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
@@ -18,7 +19,8 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var eventos = Database.Eventos.Where(e => e.Status).Include(e => e.Estabelecimento);
+            return View(eventos);
         }
     }
 }

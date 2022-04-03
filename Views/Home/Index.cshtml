@@ -1,30 +1,26 @@
 ﻿@{
     Layout = "_LayoutHome";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bem vindo -";
 }
 
 
-<style>
-    .container {
-        width: 260px;
-        display: grid;
-        grid-template-areas: "main main";
+<div class="container text-center">
+    <div class="form-row align-items-center mb-3">
+        <img src="~/Assets/logos/dark_logo_transparent_background.png" class="img-fluid"/>
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col mr-1 btn btn-dark">
+            <a class="text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
+        </div>
+        <div class="col btn btn-dark">
+            <a class="text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Register">Cadastrar</a>
+        </div>
+        
+    </div>
+</div>        
 
-    }
-
-    .itens{
-        text-decoration: none;
-        grid-area: "main";
-    }
-
-</style>
 
 
-        <div class="image" style=" background-color: blue; width: 260px; height: 340px"></div>
-        <div class="container">
-            <a class="item" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
-            <a class="item" asp-area="Identity" asp-page="/Account/Register">Cadastrar-se</a>
-        </div>        
 
 
 

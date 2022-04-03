@@ -46,22 +46,23 @@ namespace DesafioMVC.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Informe um nome")]
             [StringLength(100, ErrorMessage = "O nome de ter no mínimo 2 e no máximo 100 caracteres", MinimumLength = 2)]
             [Display(Name = "Nome")]
             public string Name { get; set; }
 
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Informe um email")]
+            [EmailAddress(ErrorMessage = "Email inválido")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Informe uma senha")]
             [StringLength(100, ErrorMessage = "A senha deve ter no mínimo 4 e no máximo 100 caracteres", MinimumLength = 4)]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
 
+            [Required(ErrorMessage = "Confirme sua senha")]
             [DataType(DataType.Password)]
             [Display(Name = "Confirmar senha")]
             [Compare("Password", ErrorMessage = "As senhas não coincidem!")]
@@ -115,7 +116,12 @@ namespace DesafioMVC.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
+                    if (error.Code.Equals("DuplicateUserName"))
+                    {
+                        error.Description = "Já existe uma conta associada a esse email";
+                    }
                     ModelState.AddModelError(string.Empty, error.Description);
+                    Console.WriteLine(error.Code);
                 }
             }
 

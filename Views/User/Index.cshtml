@@ -1,3 +1,44 @@
+@using System.Globalization
+@model IEnumerable<DesafioMVC.Models.Evento>
 @{
     Layout = "_Layout";
 }
+
+<div id="carousel-user" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-user" data-slide-to="0" class="active"></li>
+        @if (Model.Any())
+        {
+            @foreach (var evento in Model)
+            {
+                <li data-target="#carousel-user" data-slide-to="@evento.Id" class="active"></li>
+            } 
+        }
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/Assets/logos/white_logo_dark_background.jpg" class="d-block" style="width: 100%;" height="511">
+        </div>
+        @if (Model.Any())
+        {
+            @foreach (var evento in Model)
+            {
+                <div class="carousel-item">
+                    <img src="~/Assets/img/@evento.ImagemUrl" class="d-block" style="width: 100%;" height="511">
+                    <div class="carousel-caption" style="left: 0; bottom: 0; right: 0; background-color: rgba(0, 0, 0, 0.5)">
+                        <a asp-controller="User" asp-action="Eventos" class="display-4 text-white" style="text-decoration: none;">@evento.Nome.ToUpper()</a>
+                        <p>@evento.Data.ToString("D", CultureInfo.GetCultureInfo("pt-BR")) no @evento.Estabelecimento.Nome</p>
+                    </div>
+                </div>
+            } 
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carousel-user" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-user" role="button" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="sr-only">Próximo</span>
+    </a>
+</div>

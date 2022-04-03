@@ -3,23 +3,23 @@
 @inject UserManager<IdentityUser> UserManager
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <partial name="_HeadPartial" />
 </head>
 <body>
     @if (SignInManager.IsSignedIn(User) && User.HasClaim("Role", ("admin")))
     {
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                        <img src="~/logos/logo_transparent_background.png" width="50" height="60">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+        <header class="">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-0 box-shadow">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/logos/logo_transparent_background.png" width="50" height="60">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="container ">
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1 justify-content-center">
                             <li class="nav-item">
@@ -46,19 +46,24 @@
                 </div>
             </nav>
         </header>
+        <div class="container">
+            <main role="main">
+                @RenderBody()
+            </main>
+    </div>
     }
     else
     {
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+        <header >
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark mb-0 box-shadow">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/logos/logo_transparent_background.png" width="50" height="60">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="container">
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                        <img src="~/logos/logo_transparent_background.png" width="50" height="60">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1 justify-content-center">
                             <li class="nav-item">
@@ -79,14 +84,14 @@
                 </div>
             </nav>
         </header>
+        <div class="container-fluid m-0 p-0" style="">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
     }
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer bg-dark text-white text-center">
+    <footer class="footer bg-dark text-white text-center">
         <div class="container">
             &copy; Blue Ridge - 2022
         </div>

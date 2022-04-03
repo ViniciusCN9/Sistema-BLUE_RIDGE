@@ -42,11 +42,11 @@ namespace DesafioMVC.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage ="Insira um email")]
+            [EmailAddress(ErrorMessage ="Email inválido")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage ="Insira uma senha")]
             [DataType(DataType.Password)]
             [Display(Name = "Senha")]
             public string Password { get; set; }
@@ -99,7 +99,7 @@ namespace DesafioMVC.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Email ou senha inválidos");
                     return Page();
                 }
             }
