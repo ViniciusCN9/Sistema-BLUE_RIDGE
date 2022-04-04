@@ -6,7 +6,7 @@ namespace DesafioMVC.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(
+		migrationBuilder.InsertData(
                 table: "Generos",
                 columns: new[] { "Id", "Nome", "Status" },
                 values: new object[] { 1, "Jazz", true });
@@ -78,33 +78,33 @@ namespace DesafioMVC.Migrations
 
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 1, "Delicatessen", 2200, "2022-06-10 19:00:00.000000", 251.22f, 2, 1, "1b10a1f9-delicatessen_creditoRauKrebs02.jpg", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 1, "Delicatessen", 2200, 2200, "2022-06-10 19:00:00.000000", 251.22f, 2, 1, "1b10a1f9-delicatessen_creditoRauKrebs02.jpg", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 2, "Ablusadas", 1244, "2022-09-07 20:00:00.000000", 95f, 1, 1, "d0e60970-Design-sem-nome-7.png.webp", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 2, "Ablusadas", 1244, 1244, "2022-09-07 20:00:00.000000", 95f, 1, 1, "d0e60970-Design-sem-nome-7.png.webp", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 3, "Capital Inicial", 6354, "2022-07-17 18:30:00.000000", 189.99f, 3, 3, "f59eeb75-capital-inicial-sonora-photo_official-1-web-1.jpg", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 3, "Capital Inicial", 6354, 6354, "2022-07-17 18:30:00.000000", 189.99f, 3, 3, "f59eeb75-capital-inicial-sonora-photo_official-1-web-1.jpg", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 4, "Melim", 4300, "2022-10-15 21:45:00.000000", 89f, 3, 4, "96f84fd0-14861-melim-promo-tour2019-5-1.jpg", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 4, "Melim", 4300, 4300, "2022-10-15 21:45:00.000000", 89f, 3, 4, "96f84fd0-14861-melim-promo-tour2019-5-1.jpg", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 5, "Alok", 15130, "2022-11-20 00:00:00.000000", 363.49f, 4, 4, "18e60db7-licensed-image.jpg", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 5, "Alok", 15130, 15130, "2022-11-20 00:00:00.000000", 363.49f, 4, 4, "18e60db7-licensed-image.jpg", true});
             
             migrationBuilder.InsertData(
                 table: "Eventos",
-                columns: new[] { "Id", "Nome", "Capacidade", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 6, "Lulu Santos", 9010, "2022-06-10 19:00:00.000000", 132f, 4, 4, "00bc1c4e-licensed-image (1).jpg", true});
+                columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
+                values: new object[] { 6, "Lulu Santos", 9010, 9010, "2022-06-10 19:00:00.000000", 132f, 4, 4, "00bc1c4e-licensed-image (1).jpg", true});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -32,6 +32,7 @@ namespace DesafioMVC.Controllers
                 Evento evento = new Evento();
                 evento.Nome = novoEvento.Nome;
                 evento.Capacidade = novoEvento.Capacidade;
+                evento.QuantidadeIngressos = novoEvento.Capacidade;
                 evento.Data = novoEvento.Data;
                 evento.ValorIngresso = novoEvento.ValorIngresso;
                 evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);

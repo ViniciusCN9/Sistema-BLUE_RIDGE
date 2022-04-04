@@ -12,6 +12,7 @@ namespace DesafioMVC.Data
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Estabelecimento> Estabelecimentos { get; set; }
         public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

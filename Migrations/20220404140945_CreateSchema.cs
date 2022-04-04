@@ -239,6 +239,7 @@ namespace DesafioMVC.Migrations
                     Nome = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Capacidade = table.Column<int>(type: "int", nullable: false),
+                    QuantidadeIngressos = table.Column<int>(type: "int", nullable: false),
                     Data = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ValorIngresso = table.Column<float>(type: "float", nullable: false),
                     EstabelecimentoId = table.Column<int>(type: "int", nullable: true),
@@ -260,6 +261,31 @@ namespace DesafioMVC.Migrations
                         name: "FK_Eventos_Generos_GeneroId",
                         column: x => x.GeneroId,
                         principalTable: "Generos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Vendas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventoId = table.Column<int>(type: "int", nullable: true),
+                    ValorTotal = table.Column<float>(type: "float", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    Data = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vendas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Vendas_Eventos_EventoId",
+                        column: x => x.EventoId,
+                        principalTable: "Eventos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -312,6 +338,11 @@ namespace DesafioMVC.Migrations
                 table: "Eventos",
                 column: "GeneroId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Vendas_EventoId",
+                table: "Vendas",
+                column: "EventoId");
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "ConcurrencyStamp", "PhoneNumber", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnd", "LockoutEnabled", "AccessFailedCount" },
@@ -361,13 +392,16 @@ namespace DesafioMVC.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Eventos");
+                name: "Vendas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Eventos");
 
             migrationBuilder.DropTable(
                 name: "Estabelecimentos");

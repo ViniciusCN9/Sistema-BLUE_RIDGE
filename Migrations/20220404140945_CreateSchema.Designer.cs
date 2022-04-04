@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DesafioMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220331185748_CreateSchema")]
+    [Migration("20220404140945_CreateSchema")]
     partial class CreateSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,9 @@ namespace DesafioMVC.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("QuantidadeIngressos")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Status")
                         .HasColumnType("tinyint(1)");
 
@@ -99,6 +102,34 @@ namespace DesafioMVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Generos");
+                });
+
+            modelBuilder.Entity("DesafioMVC.Models.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
+
+                    b.Property<float>("ValorTotal")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId");
+
+                    b.ToTable("Vendas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -310,6 +341,15 @@ namespace DesafioMVC.Migrations
                     b.Navigation("Estabelecimento");
 
                     b.Navigation("Genero");
+                });
+
+            modelBuilder.Entity("DesafioMVC.Models.Venda", b =>
+                {
+                    b.HasOne("DesafioMVC.Models.Evento", "Evento")
+                        .WithMany()
+                        .HasForeignKey("EventoId");
+
+                    b.Navigation("Evento");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
