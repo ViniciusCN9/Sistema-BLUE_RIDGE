@@ -79,12 +79,12 @@ namespace DesafioMVC.Migrations
             migrationBuilder.InsertData(
                 table: "Eventos",
                 columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 1, "Delicatessen", 2200, 2200, "2022-06-10 19:00:00.000000", 251.22f, 2, 1, "1b10a1f9-delicatessen_creditoRauKrebs02.jpg", true});
+                values: new object[] { 1, "Delicatessen", 2200, 0, "2022-06-10 19:00:00.000000", 251.22f, 2, 1, "1b10a1f9-delicatessen_creditoRauKrebs02.jpg", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
                 columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 2, "Ablusadas", 1244, 1244, "2022-09-07 20:00:00.000000", 95f, 1, 1, "d0e60970-Design-sem-nome-7.png.webp", true});
+                values: new object[] { 2, "Ablusadas", 1244, 1, "2022-09-07 20:00:00.000000", 95f, 1, 1, "d0e60970-Design-sem-nome-7.png.webp", true});
 
             migrationBuilder.InsertData(
                 table: "Eventos",
@@ -104,7 +104,7 @@ namespace DesafioMVC.Migrations
             migrationBuilder.InsertData(
                 table: "Eventos",
                 columns: new[] { "Id", "Nome", "Capacidade", "QuantidadeIngressos", "Data", "ValorIngresso", "EstabelecimentoId", "GeneroId", "ImagemUrl", "Status" },
-                values: new object[] { 6, "Lulu Santos", 9010, 9010, "2022-06-10 19:00:00.000000", 132f, 4, 4, "00bc1c4e-licensed-image (1).jpg", true});
+                values: new object[] { 6, "Lulu Santos", 9010, 101, "2022-06-10 19:00:00.000000", 132f, 4, 4, "00bc1c4e-licensed-image (1).jpg", true});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

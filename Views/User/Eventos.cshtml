@@ -2,8 +2,9 @@
 @model IEnumerable<DesafioMVC.Models.Evento>
 @{
     Layout = "_Layout";
-    bool Vendendo = true;
+    bool vendendo = true;
 }
+
 
 <div class="container text-center" style="margin-top: 1rem;">
     <h4>EVENTOS</h4>
@@ -12,7 +13,7 @@
     {
         @foreach (var evento in Model)
         {
-            {Vendendo = (evento.QuantidadeIngressos > 0);}
+            {vendendo = (evento.QuantidadeIngressos > 0);}
             <div class="row mb-3" style="height: 42.5vh;">
                 <div class="col m-0 p-0" style="height: 100%;">
                     <img src="~/Assets/img/@evento.ImagemUrl" class="rounded-left" height="100%" width="100%" >
@@ -32,9 +33,16 @@
                             <div class="col" style="text-align: start;">
                                 <p>@evento.ValorIngresso.ToString("c", CultureInfo.GetCultureInfo("pt-BR"))</p>
                                 <p>@evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(10)</p>
-                                @if (Vendendo)
+                                @if (vendendo)
                                 {
-                                <p class="text-success"><b>VENDENDO</b></p>
+                                    @if (@evento.QuantidadeIngressos <= 100)
+                                    {
+                                        <p class="text-warning"><b>RESTAM POUCOS</b></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-success"><b>VENDENDO</b></p>
+                                    }
                                 }
                                 else
                                 {
@@ -42,9 +50,9 @@
                                 }
                             </div>
                         </div>
-                        @if (Vendendo)
+                        @if (vendendo)
                         {
-                            <a class="bg-success text" style="outline: none; flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none" data-toggle="modal" data-target="#comprar-@evento.Id" href="#@evento.Id">
+                            <a class="bg-success text" id="vendas" style="outline: none; flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none" data-toggle="modal" data-target="#comprar-@evento.Id" href="#comprar-@evento.Id">
                                 <div>
                                     <h1 class="mb-0 text-white">COMPRAR</h1>
                                 </div>
@@ -58,33 +66,115 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">@evento.Nome.ToUpper() - @evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal" id="user-fechar-modal-@evento.Id">&times;</button>
                         </div>
-
-
-                        <div class="modal-body" style="text-align: start;">
-                            <p>Quantidade</p>
-                            <input type="number" class="form-control" id="valorTotal">
-                            <p class="mt-3 mb-0">Ingressos disponíveis: <span>@evento.QuantidadeIngressos</span></p>
-                              
-                        </div>
-
-
-                        <div class="modal-footer" style="justify-content: space-between;">
-                            <div>
-                                <h3>Total: R$<span id="totalVenda">0.00</span></h3>
+                        
+                        <div class="container">
+                            <div class="modal-body" style="text-align: start;">
+                                <p>Quantidade</p>
+                                <div class="form-inline" style="justify-content: space-between;">
+                                    <input type="number" class="form-control mr-3" id="user-quantidade-@evento.Id" value="1">
+                                    <button class="btn btn-dark" id="user-quantidade-confirmar-@evento.Id">Confirmar</button>
+                                </div>
+                                <p class="mt-3 mb-0">Ingressos disponíveis: <span>@evento.QuantidadeIngressos</span></p>
+                                
                             </div>
-                            <div>
-                                <button type="button" class="btn btn-success" id="finalizar">Confirmar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+
+                            <div class="modal-footer" id="user-footer-@evento.Id" style="justify-content: space-between;">
+                                <div>
+                                    <h4>Total: R$<span id="user-total-venda-@evento.Id">0.00</span></h4>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-success" data-dismiss="modal" id="user-finalizar-venda-@evento.Id">Comprar</button>
+                                    <button type="button" class="btn btn-danger" id="user-cancelar-venda-@evento.Id">Voltar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
+                <script>
+                    var enderecoGerarVenda = "https://localhost:5001/Vendas/Gerar";
+                    var vendaQuantidade;
+
+                    $("#user-footer-@evento.Id").hide();
+
+                    $("#user-quantidade-confirmar-@evento.Id").click(function(){
+                        vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+                        if (isNaN(vendaQuantidade) || vendaQuantidade <= 0)
+                        {
+                            alert("Insira um valor válido");
+                            return;
+                        }
+                        if (vendaQuantidade > @evento.QuantidadeIngressos)
+                        {
+                            alert("Número de ingressos indisponíveis!");
+                            return;
+                        } 
+
+                        $("#user-footer-@evento.Id").show();
+                        $("#user-quantidade-confirmar-@evento.Id").prop("disabled", true);
+                        $("#user-quantidade-@evento.Id").prop("disabled", true);
+
+                        vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+
+                        $("#user-total-venda-@evento.Id").html(vendaQuantidade * @evento.ValorIngresso);
+                    })
+
+                    $("#user-finalizar-venda-@evento.Id").click(function (){
+                        if (vendaQuantidade * @evento.ValorIngresso <= 0)
+                        {
+                            alert("Compra inválida!");
+                            return;
+                        }
+
+                        var venda = {
+                            eventoId: @evento.Id,
+                            quantidade: vendaQuantidade
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: enderecoGerarVenda,
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(venda),
+                            success: function(data){
+                                $("#user-footer-@evento.Id").hide();
+                                $("#user-quantidade-confirmar-@evento.Id").prop("disabled", false);
+                                $("#user-quantidade-@evento.Id").prop("disabled", false);
+                                $("#user-quantidade-@evento.Id").val(1);
+                        
+                                vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+
+                                alert("Compra realizada com sucesso!")
+                                console.log(data);
+                                },
+                            error: function(){
+                                alert("Algo deu errado!")
+                            }   
+                        });
+                    })
+
+                    $("#user-cancelar-venda-@evento.Id").click(function (){
+                        $("#user-footer-@evento.Id").hide();
+                        $("#user-quantidade-confirmar-@evento.Id").prop("disabled", false);
+                        $("#user-quantidade-@evento.Id").prop("disabled", false);
+                    })
+
+                    $("#user-fechar-modal-@evento.Id").click(function (){
+                        $("#user-footer-@evento.Id").hide();
+                        $("#user-quantidade-confirmar-@evento.Id").prop("disabled", false);
+                        $("#user-quantidade-@evento.Id").prop("disabled", false);
+                        $("#user-quantidade-@evento.Id").val(1);
+                
+                        vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+                    })
+                </script> 
             </div>
         }
     }
 </div>
-<!-- Modal -->
+
 
 
