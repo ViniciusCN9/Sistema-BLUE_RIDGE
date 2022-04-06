@@ -9,7 +9,7 @@
     $('#eventos').DataTable({
         "info": false,
         "language": {"search": "Buscar:",
-                     "lengthMenu": "Mostrando _MENU_ registros por página",
+                     "lengthMenu": "Exibindo _MENU_",
                      "zeroRecords": "Nada encontrado.", 
                      "paginate": {
                         "first":      "Primeiro",
@@ -26,9 +26,15 @@
 {
     @if (@ViewBag.VerificaGeneros > 0)
     {
-        <h4>Eventos</h4>
-        <hr>
-        <a class="btn btn-dark" asp-controller="Admin" asp-action="CadastrarEvento">Cadastrar</a>
+        <div class="container my-3 p-0" style="height: 10vh; display: flex; justify-content: center; align-items: center">
+            <div class="w-100 h-100 bg-dark text-white rounded-left" style="flex: 3;">
+                <h1 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Eventos</h1>
+            </div>
+            <a class="w-100 h-100 bg-success text-white rounded-right" style="flex: 1; text-decoration: none" asp-controller="Admin" asp-action="CadastrarEvento">
+                <h4 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Cadastrar</h4>
+            </a>
+
+        </div>
 
         <table id="eventos" class="table table-dark table-striped table-bordered text-center">
             <thead>
@@ -50,7 +56,7 @@
                 {
                     {IngressosVendidos = @evento.Capacidade - @evento.QuantidadeIngressos;}
                     <tr>
-                        <td><img src="~/Assets/img/@evento.ImagemUrl" height="80" width="80"/></td>
+                        <td><img src="~/Assets/img/@evento.ImagemUrl" height="80" width="100"/></td>
                         <td>@evento.Id</td>
                         <td>@evento.Nome</td>
                         <td>@evento.Capacidade</td>
@@ -59,12 +65,13 @@
                         <td>@evento.ValorIngresso.ToString("c")</td>
                         <td>@evento.Estabelecimento.Nome</td>
                         <td>@evento.Genero.Nome</td>
-                        <td>
-                            <a class="btn btn-primary" href="/Admin/EditarEvento/@evento.Id">Editar</a>
+                        <td class="px-1 py-3" style="display: flex; flex-direction: column; border-width: 0">
+                            <a class="btn btn-primary w-100" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;" href="/Admin/EditarEvento/@evento.Id">Editar</a>
                             <form asp-controller="Eventos" asp-action="Deletar" method= "POST" style="display: inline;">
                                 <input type="hidden" name="id" id="id" value="@evento.Id">
-                                <button class="btn btn-danger">Deletar</button>
+                                <button class="btn btn-danger w-100" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-left: 0.06rem">Deletar</button>
                             </form>
+                            
                         </td>
                     </tr>
                 }
@@ -72,11 +79,19 @@
         </table>
     }
     else
-    {
-        <h4>Não existem gêneros musicais cadastrados</h4>
+    {   
+        <h4 class="mt-3 text-center">EVENTOS</h4>
+        <hr>
+        <div class="alert alert-danger text-center" role="alert">
+            Não existem gêneros musicais cadastrados.
+        </div>
     }
 }
 else
 {
-    <h4>Não existem estabelecimentos cadastrados</h4>
+    <h4 class="mt-3 text-center">EVENTOS</h4>
+    <hr>
+    <div class="alert alert-danger text-center" role="alert">
+        Não existem estabelecimentos cadastrados.
+    </div>
 }

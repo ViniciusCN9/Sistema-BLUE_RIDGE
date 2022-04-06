@@ -5,16 +5,21 @@
 
 
 <div class="container text-center">
-    <div class="form-row align-items-center mb-3">
+    <div class="form-row align-items-center mb-3 pr-3">
         <img src="~/Assets/logos/dark_logo_transparent_background.png" class="img-fluid"/>
     </div>
-    <div class="form-row align-items-center">
-        <div class="col mr-1 btn btn-dark">
-            <a class="text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Login">Entrar</a>
-        </div>
-        <div class="col btn btn-dark">
-            <a class="text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Register">Cadastrar</a>
-        </div>
+    <div class="form-row align-items-center text-center">
+        <a class="col text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Login">
+            <div class="mr-1 btn btn-dark w-100">
+                <p style="margin-bottom: 0;">Entrar</p>
+            </div>
+        </a>
+        <a class="col text-white" style="text-decoration: none;" asp-area="Identity" asp-page="/Account/Register">
+            <div class="btn btn-dark w-100">
+                <p style="margin-bottom: 0;">Cadastrar</p>
+            </div>        
+        </a>
+
         
     </div>
 </div>        
