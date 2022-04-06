@@ -23,7 +23,8 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var eventos = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).ToList();
+            return View(eventos);
         }
 
         public IActionResult Generos()
@@ -75,7 +76,7 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Eventos()
         {
-            var eventos = Database.Eventos.Where(e => e.Status).Include(e => e.Estabelecimento).Include(e => e.Genero);
+            var eventos = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).ToList();
             ViewBag.VerificaEstabelecimentos = Database.Estabelecimentos.Where(e => e.Status).Count();
             ViewBag.VerificaGeneros = Database.Generos.Where(e => e.Status).Count();
             return View(eventos);
@@ -98,7 +99,7 @@ namespace DesafioMVC.Controllers
             eventoView.Nome = evento.Nome;
             eventoView.Capacidade = evento.Capacidade;
             eventoView.Data = evento.Data;
-            eventoView.ValorIngresso = evento.ValorIngresso;
+            eventoView.ValorIngressoString = evento.ValorIngresso.ToString();
             eventoView.EstabelecimentoId = evento.Estabelecimento.Id;
             eventoView.GeneroId = evento.Genero.Id;
             eventoView.ImagemUrlString = evento.ImagemUrl; 
@@ -123,6 +124,22 @@ namespace DesafioMVC.Controllers
         public IActionResult Promover()
         {
             return View();
+        }
+
+        public IActionResult Historico()
+        {
+            var vendas = Database.Vendas.Include(e => e.Evento).ToList();
+            foreach (var venda in vendas)
+            {
+                venda.UserId = Database.Users.First(e => e.Id == venda.UserId).Email;
+            }
+            return View(vendas);
+        }
+
+        [HttpPost]
+        public IActionResult Relatorio()
+        {
+            return Ok(Database.Vendas.Include(e => e.Evento).ToList());
         }
     }
 }

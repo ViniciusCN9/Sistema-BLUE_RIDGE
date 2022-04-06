@@ -3,8 +3,11 @@
     Layout = "_Layout";
 }
           
-<h4>Promover usuário a administrador</h4>
-<hr>
+<div class="container text-center" style="margin-top: 1rem;">
+    <h4>PERMISSÕES DE USUÁRIOS</h4>
+    <hr>
+</div>
+
 <form class="form-horizontal" asp-controller="Opcoes" asp-action="Promover" method= "POST">
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" id="Nome">

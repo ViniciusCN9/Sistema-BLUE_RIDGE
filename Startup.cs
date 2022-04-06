@@ -50,8 +50,7 @@ namespace DesafioMVC
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Role", "admin"));
-                options.AddPolicy("User", policy => policy.RequireClaim("Role", "user", "admin"));
-                options.AddPolicy("OnlyUser", policy => policy.RequireClaim("Role", "user"));
+                options.AddPolicy("User", policy => policy.RequireClaim("Role", "user"));
             });
 
         }

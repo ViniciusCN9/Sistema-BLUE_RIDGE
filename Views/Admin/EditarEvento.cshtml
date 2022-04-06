@@ -3,8 +3,11 @@
     Layout = "_Layout";
 }
 
-<h4>Atualizar evento</h4>
-<hr>
+<div class="container text-center" style="margin-top: 1rem;">
+    <h4>ATUALIZAÇÃO DE EVENTOS</h4>
+    <hr>
+</div>
+
 <form class="form-horizontal" enctype="multipart/form-data" asp-controller="Eventos" asp-action="Atualizar" method="POST">
     <input type="hidden" asp-for="Id">
     <label asp-for="Nome">Nome</label>
@@ -20,7 +23,7 @@
     <span asp-validation-for="Data"></span>
     <br>
     <label asp-for="ValorIngressoString">Valor do ingresso</label>
-    <input type="text" asp-for="ValorIngressoString" class="form-control" placeholder="XX XXXX XXXX">
+    <input type="text" asp-for="ValorIngressoString" class="form-control" placeholder="R$99,9">
     <span asp-validation-for="ValorIngressoString"></span>
     <br>
     <label asp-for="EstabelecimentoId">Estabelecimento</label>

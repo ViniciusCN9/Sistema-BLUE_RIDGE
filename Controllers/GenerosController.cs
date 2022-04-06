@@ -55,9 +55,15 @@ namespace DesafioMVC.Controllers
             if(id > 0)
             {
                 Genero genero = Database.Generos.First(e => e.Id == id);
-                genero.Status = false;
-                
-                Database.SaveChanges();
+                bool eventoCadastrado = Database.Eventos.Any(e => e.Genero.Equals(genero));
+                if (!eventoCadastrado)
+                {
+                    genero.Status = false;
+                    Database.SaveChanges();
+                }
+                else
+                {
+                }
             }
             return RedirectToAction("Generos", "Admin"); 
         }

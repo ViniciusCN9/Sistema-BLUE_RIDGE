@@ -8,7 +8,7 @@
     $('#estabelecimentos').DataTable({
         "info": false,
         "language": {"search": "Buscar:",
-                     "lengthMenu": "Mostrando _MENU_ registros por página",
+                     "lengthMenu": "Exibindo _MENU_",
                      "zeroRecords": "Nada encontrado.", 
                      "paginate": {
                         "first":      "Primeiro",
@@ -21,9 +21,15 @@
     });
 </script>
 
-<h4>Estabelecimentos</h4>
+<div class="container my-3 p-0" style="height: 10vh; display: flex; justify-content: center; align-items: center">
+    <div class="w-100 h-100 bg-dark text-white rounded-left" style="flex: 3;">
+            <h1 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Estabelecimentos</h1>
+    </div>
+    <a class="w-100 h-100 bg-success text-white rounded-right" style="flex: 1; text-decoration: none" asp-controller="Admin" asp-action="CadastrarEstabelecimento">
+        <h4 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Cadastrar</h4>
+    </a>
+</div>
 <hr>
-<a class="btn btn-dark" asp-controller="Admin" asp-action="CadastrarEstabelecimento">Cadastrar</a>
 
 <table id="estabelecimentos" class="table table-dark table-striped table-bordered">
     <thead>
@@ -45,11 +51,11 @@
                 <td>@estabelecimentos.Endereco</td>
                 <td>@estabelecimentos.Email</td>
                 <td>@estabelecimentos.Telefone</td>
-                <td>
-                    <a class="btn btn-primary" href="/Admin/EditarEstabelecimento/@estabelecimentos.Id">Editar</a>
+                <td class="px-1 py-3">
+                    <a class="btn btn-primary w-100" href="/Admin/EditarEstabelecimento/@estabelecimentos.Id">Editar</a>
                     <form asp-controller="Estabelecimentos" asp-action="Deletar" method= "POST" style="display: inline;">
                         <input type="hidden" name="id" id="id" value="@estabelecimentos.Id">
-                        <button class="btn btn-danger">Deletar</button>
+                        <button class="btn btn-danger w-100">Deletar</button>
                     </form>
                 </td>
             </tr>

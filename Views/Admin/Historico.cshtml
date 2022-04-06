@@ -1,0 +1,56 @@
+@model IEnumerable<DesafioMVC.Models.Venda>
+@{
+    Layout = "_Layout";
+}
+
+<script>
+    $(document).ready( function () {
+    $('#vendas').DataTable({
+        "info": false,
+        "language": {"search": "Buscar:",
+                     "lengthMenu": "Mostrando _MENU_",
+                     "zeroRecords": "Desculpa, Nada encontrado.", 
+                     "paginate": {
+                        "first":      "Primeiro",
+                        "last":       "Último",
+                        "next":       "Próximo",
+                        "previous":   "Anterior"
+                        }
+                    }
+        });
+    });
+</script>
+
+<div class="container my-3 p-0" style="height: 10vh; display: flex; justify-content: center; align-items: center">
+    <div class="w-100 h-100 bg-dark text-white rounded" style="flex: 3;">
+            <h1 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Histórico de vendas</h1>
+    </div>
+</div>
+<hr>
+
+<table id="vendas" class="table table-dark table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Evento</th>
+            <th>Qunatidade</th>
+            <th>Valor total</th>
+            <th>Data da compra</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var venda in Model)
+        {
+            <tr>
+                <td>@venda.Id</td>
+                <td>@venda.UserId</td>
+                <td>@venda.Evento.Nome</td>
+                <td>@venda.Quantidade</td>
+                <td>@venda.ValorTotal.ToString("c")</td>
+                <td>@venda.Data.ToString().Substring(0,16)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -2,8 +2,12 @@
 @{
     Layout = "_Layout";
 }
-<h4>Atualizar gêneros</h4>
-<hr>
+
+<div class="container text-center" style="margin-top: 1rem;">
+    <h4>ATUALIZAÇÃO DE GÊNEROS MUSICAIS</h4>
+    <hr>
+</div>
+
 <form class="form-horizontal" asp-controller="Generos" asp-action="Atualizar" method="POST">
     <input type="hidden" asp-for="Id">
     <label asp-for="Nome">Nome</label>

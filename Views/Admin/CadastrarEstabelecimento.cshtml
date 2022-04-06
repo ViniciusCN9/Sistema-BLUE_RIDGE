@@ -2,8 +2,11 @@
 @{
     Layout = "_Layout";
 }
-<h4>Cadastrar estabelecimento</h4>
-<hr>
+<div class="container text-center" style="margin-top: 1rem;">
+    <h4>CADASTRO DE ESTABELECIMENTOS</h4>
+    <hr>
+</div>
+
 <form class="form-horizontal" asp-controller="Estabelecimentos" asp-action="Salvar" method="POST">
     <input type="hidden" asp-for="Id" value="0">
     <label asp-for="Nome">Nome</label>

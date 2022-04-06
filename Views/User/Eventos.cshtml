@@ -2,18 +2,20 @@
 @model IEnumerable<DesafioMVC.Models.Evento>
 @{
     Layout = "_Layout";
-    bool vendendo = true;
+    bool status;
+    bool vendendo;
 }
 
 
-<div class="container text-center" style="margin-top: 1rem;">
+<div class="container text-center mt-3">
     <h4>EVENTOS</h4>
     <hr>
     @if (Model.Any())
     {
         @foreach (var evento in Model)
         {
-            {vendendo = (evento.QuantidadeIngressos > 0);}
+            {vendendo = (@evento.QuantidadeIngressos > 0);}
+            {status = @evento.Status;}
             <div class="row mb-3" style="height: 42.5vh;">
                 <div class="col m-0 p-0" style="height: 100%;">
                     <img src="~/Assets/img/@evento.ImagemUrl" class="rounded-left" height="100%" width="100%" >
@@ -33,24 +35,29 @@
                             <div class="col" style="text-align: start;">
                                 <p>@evento.ValorIngresso.ToString("c", CultureInfo.GetCultureInfo("pt-BR"))</p>
                                 <p>@evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(10)</p>
-                                @if (vendendo)
-                                {
-                                    @if (@evento.QuantidadeIngressos <= 100)
+                                @if (status)
+                                    @if (vendendo)
                                     {
-                                        <p class="text-warning"><b>RESTAM POUCOS</b></p>
+                                        @if (@evento.QuantidadeIngressos <= 100)
+                                        {
+                                            <p class="text-warning"><b>RESTAM POUCOS</b></p>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-success"><b>VENDENDO</b></p>
+                                        }
                                     }
                                     else
                                     {
-                                        <p class="text-success"><b>VENDENDO</b></p>
+                                        <p class="text-danger"><b>ESGOTADO</b></p>
                                     }
-                                }
                                 else
                                 {
-                                    <p class="text-danger"><b>ESGOTADO</b></p>
+                                    <p class="text-danger"><b>CANCELADO</b></p>
                                 }
                             </div>
                         </div>
-                        @if (vendendo)
+                        @if (status && vendendo)
                         {
                             <a class="bg-success text" id="vendas" style="outline: none; flex: 1; display: flex; align-items: center; justify-content: center; text-decoration: none" data-toggle="modal" data-target="#comprar-@evento.Id" href="#comprar-@evento.Id">
                                 <div>

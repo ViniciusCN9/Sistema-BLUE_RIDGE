@@ -3,8 +3,11 @@
     Layout = "_Layout";
 }
 
-<h4>Cadastrar evento</h4>
-<hr>
+<div class="container text-center" style="margin-top: 1rem;">
+    <h4>CADASTRO DE EVENTOS</h4>
+    <hr>
+</div>
+
 <form class="form-horizontal" enctype="multipart/form-data" asp-controller="Eventos" asp-action="Salvar" method="POST">
     <input type="hidden" asp-for="Id" value="0">
     <label asp-for="Nome">Nome</label>

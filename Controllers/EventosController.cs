@@ -72,12 +72,25 @@ namespace DesafioMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Deletar(int id)
+        public IActionResult Cancelar(int id)
         {
             if(ModelState.IsValid)
             {
                 Evento evento = Database.Eventos.First(e => e.Id == id);
                 evento.Status = false;
+
+                Database.SaveChanges();
+            }
+            return RedirectToAction("Eventos", "Admin");
+        }
+
+        [HttpPost]
+        public IActionResult Restabelecer(int id)
+        {
+            if(ModelState.IsValid)
+            {
+                Evento evento = Database.Eventos.First(e => e.Id == id);
+                evento.Status = true;
 
                 Database.SaveChanges();
             }

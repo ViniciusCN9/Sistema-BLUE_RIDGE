@@ -9,7 +9,7 @@
     $('#opcoes').DataTable({
         "info": false,
         "language": {"search": "Buscar:",
-                     "lengthMenu": "Mostrando _MENU_ registros por página",
+                     "lengthMenu": "Mostrando _MENU_",
                      "zeroRecords": "Desculpa, Nada encontrado.", 
                      "paginate": {
                         "first":      "Primeiro",
@@ -22,9 +22,15 @@
     });
 </script>
 
-<h4>Opçoes de administrador</h4>
+<div class="container my-3 p-0" style="height: 10vh; display: flex; justify-content: center; align-items: center">
+    <div class="w-100 h-100 bg-dark text-white rounded-left" style="flex: 3;">
+            <h1 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Opções de administrador</h1>
+    </div>
+    <a class="w-100 h-100 bg-success text-white rounded-right" style="flex: 1; text-decoration: none" asp-controller="Admin" asp-action="Promover">
+        <h4 class="m-0" style="position: relative; top: 50%; text-align: center; transform: translate(0, -50%);">Promover</h4>
+    </a>
+</div>
 <hr>
-<a class="btn btn-dark text-white" asp-controller="Admin" asp-action="Promover">Promover usuário a administrador</a>
 
 <table id="opcoes" class="table table-dark table-striped table-bordered">
     <thead>

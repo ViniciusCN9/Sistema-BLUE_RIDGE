@@ -61,9 +61,12 @@ namespace DesafioMVC.Controllers
             if(id > 0)
             {
                 Estabelecimento estabelecimento = Database.Estabelecimentos.First(e => e.Id == id);
-                estabelecimento.Status = false;
-
-                Database.SaveChanges();
+                bool eventoCadastrado = Database.Eventos.Any(e => e.Estabelecimento.Equals(estabelecimento));
+                if (!eventoCadastrado)
+                {
+                    estabelecimento.Status = false;
+                    Database.SaveChanges();
+                }   
             }
             return RedirectToAction("Estabelecimentos", "Admin");
         }
