@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using DesafioMVC.DTO;
 using DesafioMVC.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioMVC.Controllers
 {
@@ -34,7 +36,7 @@ namespace DesafioMVC.Controllers
                 evento.Capacidade = novoEvento.Capacidade;
                 evento.QuantidadeIngressos = novoEvento.Capacidade;
                 evento.Data = novoEvento.Data;
-                evento.ValorIngresso = novoEvento.ValorIngresso;
+                evento.ValorIngresso = float.Parse(novoEvento.ValorIngressoString, CultureInfo.InvariantCulture.NumberFormat);
                 evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);
                 evento.Genero = Database.Generos.First(e => e.Id == novoEvento.GeneroId);
                 evento.ImagemUrl = caminhoImagem;
@@ -80,6 +82,22 @@ namespace DesafioMVC.Controllers
                 Database.SaveChanges();
             }
             return RedirectToAction("Eventos", "Admin");
+        }
+
+        [HttpPost]
+        public IActionResult Evento(int id)
+        {
+            if (id > 0)
+            {
+                Evento evento = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).First(e => e.Id == id);
+                if (evento != null)
+                {
+                    Response.StatusCode = 200;
+                    return Json(evento);
+                }
+            }
+            Response.StatusCode = 404;
+            return Json(null);
         }
 
         // Manipulação das imagens

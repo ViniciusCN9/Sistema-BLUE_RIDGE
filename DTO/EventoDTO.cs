@@ -32,6 +32,11 @@ namespace DesafioMVC.DTO
         public float ValorIngresso { get; set; }
 
         [Required]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0,c}")]
+        public string ValorIngressoString { get; set; }
+
+        [Required]
         public int EstabelecimentoId { get; set; }
 
         [Required]

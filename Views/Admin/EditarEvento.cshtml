@@ -19,9 +19,9 @@
     <input type="datetime-local" asp-for="Data" class="form-control" min="@ViewBag.DataAtual">
     <span asp-validation-for="Data"></span>
     <br>
-    <label asp-for="ValorIngresso">Valor do ingresso</label>
-    <input type="text" asp-for="ValorIngresso" class="form-control" placeholder="XX XXXX XXXX">
-    <span asp-validation-for="ValorIngresso"></span>
+    <label asp-for="ValorIngressoString">Valor do ingresso</label>
+    <input type="text" asp-for="ValorIngressoString" class="form-control" placeholder="XX XXXX XXXX">
+    <span asp-validation-for="ValorIngressoString"></span>
     <br>
     <label asp-for="EstabelecimentoId">Estabelecimento</label>
     <select class="form-control" asp-for="EstabelecimentoId" asp-items='@(new SelectList(@ViewBag.Estabelecimentos,"Id","Nome"))'></select>

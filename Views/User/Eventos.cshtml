@@ -95,7 +95,10 @@
                 </div>
                 <script>
                     var enderecoGerarVenda = "https://localhost:5001/Vendas/Gerar";
+                    var enderecoEvento = "https://localhost:5001/Eventos/Evento/";
+                    var evento;
                     var vendaQuantidade;
+                    var vendaValorTotal;
 
                     $("#user-footer-@evento.Id").hide();
 
@@ -110,19 +113,28 @@
                         {
                             alert("Número de ingressos indisponíveis!");
                             return;
-                        } 
+                        }
 
-                        $("#user-footer-@evento.Id").show();
-                        $("#user-quantidade-confirmar-@evento.Id").prop("disabled", true);
-                        $("#user-quantidade-@evento.Id").prop("disabled", true);
+                        var enderecoConsulta = enderecoEvento + @evento.Id;
+                        $.post(enderecoConsulta, function(dados){
+                            evento = dados;
 
-                        vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+                            $("#user-footer-@evento.Id").show();
+                            $("#user-quantidade-confirmar-@evento.Id").prop("disabled", true);
+                            $("#user-quantidade-@evento.Id").prop("disabled", true);
 
-                        $("#user-total-venda-@evento.Id").html(vendaQuantidade * @evento.ValorIngresso);
+                            vendaQuantidade = $("#user-quantidade-@evento.Id").val();
+                            vendaValorTotal = vendaQuantidade * evento.valorIngresso;
+
+                            $("#user-total-venda-@evento.Id").html(vendaValorTotal.toFixed(2));
+                        }).fail(function(){
+                            alert("Ocorreu um erro, tente novamente!");
+                            return;
+                        })
                     })
 
                     $("#user-finalizar-venda-@evento.Id").click(function (){
-                        if (vendaQuantidade * @evento.ValorIngresso <= 0)
+                        if (vendaValorTotal <= 0)
                         {
                             alert("Compra inválida!");
                             return;
