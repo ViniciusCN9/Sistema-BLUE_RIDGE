@@ -37,7 +37,7 @@ namespace DesafioMVC.Controllers
         public async Task<IActionResult> Historico()
         {
             var user = await UserManager.GetUserAsync(User);
-            var vendas = Database.Vendas.Where(e => e.UserId.Equals(user.Id)).Include(e => e.Evento).OrderBy(e => e.Data);
+            var vendas = Database.Vendas.Where(e => e.UserId.Equals(user.Id)).Include(e => e.Evento).Include(e => e.Evento.Estabelecimento).OrderBy(e => e.Data);
             return View(vendas);
         }
     }

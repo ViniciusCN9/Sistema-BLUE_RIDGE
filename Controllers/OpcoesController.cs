@@ -23,21 +23,53 @@ namespace DesafioMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Promover(PromoverDTO opcoes)
+        public IActionResult Promover(PromoverDTO usuario)
         {
 
             if(ModelState.IsValid)
             {
-                var user = Database.Users.First(e => e.Email == opcoes.Email);
-                var usuarioNome = Database.UserClaims.First(e => e.UserId == user.Id 
-                                                            && e.ClaimType.Equals("Name")
-                                                            && e.ClaimValue.Equals(opcoes.Nome));
-                var usuarioAdmin = Database.UserClaims.First(e => e.Id == (usuarioNome.Id + 1));
-                usuarioAdmin.ClaimValue = "admin";
+                IdentityUser user;
+                IdentityUserClaim<string> usuarioNome;
 
-                Database.SaveChanges();
+                try
+                {
+                    user = Database.Users.First(e => e.Email.Equals(usuario.Email));
+                }
+                catch
+                {
+                    user = null;
+                }
+
+                try
+                {
+                    usuarioNome = Database.UserClaims.First(e => e.UserId == user.Id 
+                                                                && e.ClaimType.Equals("Name")
+                                                                && e.ClaimValue.Equals(usuario.Nome));
+                }
+                catch
+                {
+                    usuarioNome = null;
+                }
+                
+                if (user != null && usuarioNome != null)
+                {
+                    var usuarioAdmin = Database.UserClaims.First(e => e.Id == (usuarioNome.Id + 1));
+                    usuarioAdmin.ClaimValue = "admin";
+                    Database.SaveChanges();
+
+                    return RedirectToAction("Opcoes","Admin");
+                }
+                else
+                {
+                    ViewBag.Mensagem = "Usuário não encontrado.";
+                    return View("../Admin/Promover", usuario);
+                }
             }
-            return RedirectToAction("Opcoes", "Admin");
+            else
+            {
+                ViewBag.Mensagem = "Preecha corretamente os campos.";
+                return View("../Admin/Promover", usuario);
+            }
         }
 
         [HttpPost]

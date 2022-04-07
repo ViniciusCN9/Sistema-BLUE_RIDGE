@@ -2,6 +2,9 @@
 @model IEnumerable<DesafioMVC.Models.Evento>
 @{
     Layout = "_Layout";
+    int ingressosVendidos;
+    double porcentagem;
+    int exibirPorcentagem;
 }
 
 <div class="container my-3 p-0" style="height: 10vh; display: flex; justify-content: center; align-items: center">
@@ -14,21 +17,74 @@
 <div class="flex-row mb-3">
     @foreach (var evento in Model)
     {
+        {ingressosVendidos = @evento.Capacidade - @evento.QuantidadeIngressos;}
         <div class="flex-column mt-3" style="flex: 1;">
-            <div class="row w-100 p-3 text-center border rounded" style="align-items: center;">
-                <div class="col">
-                    <h4 class="m-0">@evento.Nome</h4>
-                    <p class="m-0">@evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</p>
+            <div class="row w-100 border rounded m-0" style="align-content: stretch; flex: 1;">
+                <div class="col bg-dark text-white rounded-left pt-1">
+                    <div>
+                        <h4 class="m-0">@evento.Nome</h4>
+                        <p class="m-0">@evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</p>
+                    </div>
                 </div>
-                <div class="col">
-                    <canvas id="chartProgress"></canvas>
-                    <script>
-                            
-                    </script>
+                <div class="text-center pt-1" style="display: flex; flex-direction: column; flex: 3; align-items: center;">
+                    <div style="flex: 1;">
+                        <p class="m-0"><b>INGRESSOS VENDIDOS</b></p>
+                    </div>
+                    <div style="flex: 3;">
+                        <h4>@ingressosVendidos / @evento.Capacidade</h4>
+                    </div>
+                </div>
+                <div class="col text-left border-left pt-1" style="flex: 2;"> 
+                    <P class="m-0">Valor do ingresso: @evento.ValorIngresso.ToString("C")</P>
+                    <P class="m-0">Local: @evento.Estabelecimento.Nome</P>
+                    @if (@evento.Status)
+                    {
+                        @if (@evento.QuantidadeIngressos > 0)
+                        {
+                            <P class="m-0">Status: <span class="text-success"><b>VENDENDO</b></span></P>
+                        }
+                        else
+                        {
+                            <P class="m-0">Status: <span class="text-warning"><b>ESGOTADO</b></span></P>
+                        }
+                        
+                    }
+                    else 
+                    {
+                        <P class="m-0">Status: <span class="text-danger"><b>CANCELADO</b></span></P>
+                    }
+                    
                 </div>
                 
             </div>
         </div>
+
+        { 
+            porcentagem = (Convert.ToDouble(ingressosVendidos) / Convert.ToDouble(@evento.Capacidade) * 100);
+            exibirPorcentagem = (int)Math.Floor(porcentagem);
+        }
+        @if (@evento.Status)
+        {
+            @if (@evento.QuantidadeIngressos > 0)
+            {
+                <div class="progress" style="height: 2rem;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" id="admin-progress-@evento.Id" aria-label="progress-@evento.Id" style="width: @exibirPorcentagem%" aria-valuenow="@exibirPorcentagem" aria-valuemin="0" aria-valuemax="100">@exibirPorcentagem%</div>
+                </div>
+            }
+            else
+            {
+                <div class="progress" style="height: 2rem;">
+                    <div class="progress-bar bg-warning" role="progressbar" id="admin-progress-@evento.Id" aria-label="progress-@evento.Id" style="width: @exibirPorcentagem%" aria-valuenow="@exibirPorcentagem" aria-valuemin="0" aria-valuemax="100">@exibirPorcentagem%</div>
+                </div>
+            }            
+        }
+        else 
+        {
+            <div class="progress" style="height: 2rem;">
+                <div class="progress-bar bg-danger" role="progressbar" id="admin-progress-@evento.Id" aria-label="progress-@evento.Id" style="width: @exibirPorcentagem%" aria-valuenow="@exibirPorcentagem" aria-valuemin="0" aria-valuemax="100">@exibirPorcentagem%</div>
+            </div>
+        }
+        <hr>
     }
 </div>
 

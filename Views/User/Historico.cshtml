@@ -11,23 +11,58 @@
     @if (Model.Any())
         @foreach (var venda in Model)
         {
-            <div class="flex-row mb-3">
-                <div class="flex-column mt-3" style="flex: 1;">
-                    <div class="row w-100 p-3 text-center border rounded" style="align-items: center;">
-                        <div class="col">
-                            <h4 class="m-0">@venda.Evento.Nome</h4>
-                            <p class="m-0">@venda.Evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</p>
+            @if (@venda.Evento.Status)
+            {
+                <div class="flex-row mb-3">
+                    <div class="flex-column mt-3" style="flex: 1;">
+                        <div class="row w-100 p-3 text-center border rounded alert-success" style="align-items: center;">
+                            <div class="col">
+                                <h4 class="m-0">@venda.Evento.Nome</h4>
+                                <p class="m-0">@venda.Evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</p>
+                            </div>
+                            <div class="col text-left">
+                                <div>
+                                    <p class="m-1"><b>Valor unitário: @venda.Evento.ValorIngresso.ToString("c")</b></p>
+                                    <p class="m-1"><b>Quantidade: @venda.Quantidade</b></p>
+                                    <p class="m-1"><b>Data da compra: @venda.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,16)</b></p>
+                                </div>
+                                <br>
+                                <div>
+                                    <h4><b>Total: @venda.ValorTotal.ToString("c")</b><h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <canvas id="chartProgress"></canvas>
-                            <script>
-                                    
-                            </script>
-                        </div>
-                        
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="flex-row mb-3">
+                    <div class="flex-column mt-3" style="flex: 1;">
+                        <div class="row w-100 p-3 text-center border rounded alert-danger" style="align-items: center;">
+                            <div class="col">
+                                <h4 class="m-0">@venda.Evento.Nome</h4>
+                                <p class="m-0">@venda.Evento.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,10)</p>
+                                <br>
+                                <p class="m-0">Evento cancelado, contate o estabelecimento</p>
+                                <p class="m-0">@venda.Evento.Estabelecimento.Telefone</p>
+                            </div>
+                            <div class="col text-left">
+                                <div>
+                                    <p class="m-1"><b>Valor unitário: @venda.Evento.ValorIngresso.ToString("c")</b></p>
+                                    <p class="m-1"><b>Quantidade: @venda.Quantidade</b></p>
+                                    <p class="m-1"><b>Data da compra: @venda.Data.ToString("g", CultureInfo.GetCultureInfo("pt-BR")).Substring(0,16)</b></p>
+                                </div>
+                                <br>
+                                <div>
+                                    <h4><b>Total: @venda.ValorTotal.ToString("c")</b><h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
         }
     else 
     {

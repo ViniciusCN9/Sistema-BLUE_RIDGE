@@ -32,19 +32,22 @@ namespace DesafioMVC.Controllers
                 string caminhoImagem = SalvarImagem(novoEvento);
 
                 Evento evento = new Evento();
-                evento.Nome = novoEvento.Nome;
-                evento.Capacidade = novoEvento.Capacidade;
-                evento.QuantidadeIngressos = novoEvento.Capacidade;
-                evento.Data = novoEvento.Data;
-                evento.ValorIngresso = float.Parse(novoEvento.ValorIngressoString, CultureInfo.InvariantCulture.NumberFormat);
-                evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);
-                evento.Genero = Database.Generos.First(e => e.Id == novoEvento.GeneroId);
-                evento.ImagemUrl = caminhoImagem;
-                evento.Status = true;
+                if (ValidaData(novoEvento.Data) > 0)
+                {
+                    evento.Nome = novoEvento.Nome;
+                    evento.Capacidade = novoEvento.Capacidade;
+                    evento.QuantidadeIngressos = novoEvento.Capacidade;
+                    evento.Data = novoEvento.Data;
+                    evento.ValorIngresso = float.Parse(novoEvento.ValorIngressoString, CultureInfo.InvariantCulture.NumberFormat);
+                    evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);
+                    evento.Genero = Database.Generos.First(e => e.Id == novoEvento.GeneroId);
+                    evento.ImagemUrl = caminhoImagem;
+                    evento.Status = true;
 
-                Database.Eventos.Add(evento);
-                Database.SaveChanges();
-                return RedirectToAction("Eventos", "Admin");
+                    Database.Eventos.Add(evento);
+                    Database.SaveChanges();
+                    return RedirectToAction("Eventos", "Admin");
+                }
             }
             return RedirectToAction("CadastrarEvento","Admin");
         }
@@ -57,18 +60,45 @@ namespace DesafioMVC.Controllers
                 string caminhoImagem = AtualizarImagem(novoEvento);
 
                 Evento evento = Database.Eventos.First(e => e.Id == novoEvento.Id);
-                evento.Nome = novoEvento.Nome;
-                evento.Capacidade = novoEvento.Capacidade;
-                evento.Data = novoEvento.Data;
-                evento.ValorIngresso = novoEvento.ValorIngresso;
-                evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);
-                evento.Genero = Database.Generos.First(e => e.Id == novoEvento.GeneroId);
-                evento.ImagemUrl = caminhoImagem;
+                int ingressosVendidos = evento.Capacidade - evento.QuantidadeIngressos;
+                int ingressosDisponiveis = novoEvento.Capacidade - ingressosVendidos;
 
-                Database.SaveChanges();
-                return RedirectToAction("Eventos", "Admin");
+                if(novoEvento.Capacidade >= ingressosVendidos)
+                {
+                    if (ValidaData(novoEvento.Data) > 0)
+                    {
+                        evento.Nome = novoEvento.Nome;
+                        evento.Capacidade = novoEvento.Capacidade;
+                        evento.QuantidadeIngressos = ingressosDisponiveis;
+                        evento.Data = novoEvento.Data;
+                        evento.ValorIngresso = float.Parse(novoEvento.ValorIngressoString);
+                        evento.Estabelecimento = Database.Estabelecimentos.First(e => e.Id == novoEvento.EstabelecimentoId);
+                        evento.Genero = Database.Generos.First(e => e.Id == novoEvento.GeneroId);
+                        evento.ImagemUrl = caminhoImagem;
+
+                        Database.SaveChanges();
+                        return RedirectToAction("Eventos", "Admin");
+                    }
+                    else
+                    {
+                        ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+                        ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
+                        ViewBag.Mensagem = "Insira uma data futura.";
+                        return View("../Admin/EditarEvento", novoEvento);
+                    }
+                }
+                else
+                {
+                    ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+                    ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
+                    ViewBag.Mensagem = "A capacidade deve ser maior que o número de ingressos vendidos.";
+                    return View("../Admin/EditarEvento", novoEvento);
+                }
             }
-            return View("../Admin/EditarEvento");
+                ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+                ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
+                ViewBag.Mensagem = "Preecha corretamente os campos.";
+                return View("../Admin/EditarEvento", novoEvento);
         }
 
         [HttpPost]
@@ -113,7 +143,14 @@ namespace DesafioMVC.Controllers
             return Json(null);
         }
 
-        // Manipulação das imagens
+        // Métodos internos
+
+        private int ValidaData(DateTime data)
+        {
+            var dataAtual = DateTime.Now;
+            int diferencaDatas = data.CompareTo(dataAtual);
+            return (diferencaDatas);
+        }
 
         private string SalvarImagem(EventoDTO evento)
         {

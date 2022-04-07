@@ -9,6 +9,12 @@
 </div>
 
 <form class="form-horizontal" asp-controller="Generos" asp-action="Atualizar" method="POST">
+    @if (@ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @ViewBag.Mensagem
+        </div>
+    }
     <input type="hidden" asp-for="Id">
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Samba">

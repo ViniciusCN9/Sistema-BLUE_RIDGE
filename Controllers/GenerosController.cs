@@ -63,6 +63,9 @@ namespace DesafioMVC.Controllers
                 }
                 else
                 {
+                    var generos = Database.Generos.Where(e => e.Status).ToList();
+                    ViewBag.Mensagem = "Não é possível deletar gêneros com eventos cadastrados.";
+                    return View("../Admin/Generos" , generos);
                 }
             }
             return RedirectToAction("Generos", "Admin"); 

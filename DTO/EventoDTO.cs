@@ -21,6 +21,8 @@ namespace DesafioMVC.DTO
         [Range(1,2147483647)]
         public int Capacidade { get; set; }
 
+        public int QuantidadeIngressos { get; set; }
+
         [Required]
         [DataType(DataType.DateTime)]
         // [DisplayFormat(DataFormatString = "mm/dd/yyyy")]

@@ -85,8 +85,8 @@ namespace DesafioMVC.Controllers
         public IActionResult CadastrarEvento()
         {
             ViewBag.DataAtual = DateTime.Now.ToString("s").Substring(0,16);
-            ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
-            ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
+            ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status);
+            ViewBag.Generos = Database.Generos.Where(e => e.Status);
             return View();
         }
 
@@ -98,6 +98,7 @@ namespace DesafioMVC.Controllers
             eventoView.Id = evento.Id;
             eventoView.Nome = evento.Nome;
             eventoView.Capacidade = evento.Capacidade;
+            eventoView.QuantidadeIngressos = evento.QuantidadeIngressos;
             eventoView.Data = evento.Data;
             eventoView.ValorIngressoString = evento.ValorIngresso.ToString();
             eventoView.EstabelecimentoId = evento.Estabelecimento.Id;
@@ -105,7 +106,7 @@ namespace DesafioMVC.Controllers
             eventoView.ImagemUrlString = evento.ImagemUrl; 
 
             ViewBag.Estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
-            ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList(); 
+            ViewBag.Generos = Database.Generos.Where(e => e.Status).ToList();
             return View(eventoView);
         }
 

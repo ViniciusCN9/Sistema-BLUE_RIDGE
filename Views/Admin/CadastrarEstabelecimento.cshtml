@@ -8,6 +8,12 @@
 </div>
 
 <form class="form-horizontal" asp-controller="Estabelecimentos" asp-action="Salvar" method="POST">
+    @if (@ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @ViewBag.Mensagem
+        </div>
+    }
     <input type="hidden" asp-for="Id" value="0">
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Bar do Fulano">

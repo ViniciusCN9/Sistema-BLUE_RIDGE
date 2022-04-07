@@ -31,6 +31,13 @@
 </div>
 <hr>
 
+@if (@ViewBag.Mensagem != null)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        @ViewBag.Mensagem
+    </div>
+}
+
 <table id="estabelecimentos" class="table table-dark table-striped table-bordered">
     <thead>
         <tr>

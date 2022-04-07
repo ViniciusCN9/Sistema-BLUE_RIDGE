@@ -9,6 +9,12 @@
 </div>
 
 <form class="form-horizontal" asp-controller="Opcoes" asp-action="Promover" method= "POST">
+    @if (@ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @ViewBag.Mensagem
+        </div>
+    }
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" id="Nome">
     <br>

@@ -1,7 +1,6 @@
 @model IEnumerable<DesafioMVC.Models.Evento>
 @{
     Layout = "_Layout";
-    int IngressosVendidos = 0;
 }
 
 <script>
@@ -20,6 +19,7 @@
                     }
         });
     });
+
 </script>
 
 @if (@ViewBag.VerificaEstabelecimentos > 0)
@@ -43,7 +43,6 @@
                     <th>Id</th>
                     <th>Nome</th>
                     <th>Capacidade</th>
-                    <th>Ingressos vendidos</th>
                     <th>Data e Hora</th>
                     <th>Valor do ingresso</th>
                     <th>Estabelecimento</th>
@@ -54,13 +53,11 @@
             <tbody>
                 @foreach (var evento in Model)
                 {
-                    {IngressosVendidos = @evento.Capacidade - @evento.QuantidadeIngressos;}
                     <tr>
                         <td><img src="~/Assets/img/@evento.ImagemUrl" height="80" width="100"/></td>
                         <td>@evento.Id</td>
                         <td>@evento.Nome</td>
                         <td>@evento.Capacidade</td>
-                        <td>@IngressosVendidos</td>
                         <td>@evento.Data.ToString().Substring(0,16)</td>
                         <td>@evento.ValorIngresso.ToString("c")</td>
                         <td>@evento.Estabelecimento.Nome</td>

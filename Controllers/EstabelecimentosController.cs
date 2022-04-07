@@ -66,6 +66,12 @@ namespace DesafioMVC.Controllers
                 {
                     estabelecimento.Status = false;
                     Database.SaveChanges();
+                }
+                else
+                {
+                    var estabelecimentos = Database.Estabelecimentos.Where(e => e.Status).ToList();
+                    ViewBag.Mensagem = "Não é possível deletar estabelecimentos com eventos cadastrados.";
+                    return View("../Admin/Estabelecimentos" , estabelecimentos);
                 }   
             }
             return RedirectToAction("Estabelecimentos", "Admin");

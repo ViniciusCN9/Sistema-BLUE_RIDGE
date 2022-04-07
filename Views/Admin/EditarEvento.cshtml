@@ -8,8 +8,17 @@
     <hr>
 </div>
 
+
+
 <form class="form-horizontal" enctype="multipart/form-data" asp-controller="Eventos" asp-action="Atualizar" method="POST">
+    @if (@ViewBag.Mensagem != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @ViewBag.Mensagem
+        </div>
+    }
     <input type="hidden" asp-for="Id">
+    <input type="hidden" asp-for="QuantidadeIngressos">
     <label asp-for="Nome">Nome</label>
     <input type="text" asp-for="Nome" class="form-control" placeholder="Ex: Show do Fulano">
     <span asp-validation-for="Nome"></span>
@@ -27,7 +36,7 @@
     <span asp-validation-for="ValorIngressoString"></span>
     <br>
     <label asp-for="EstabelecimentoId">Estabelecimento</label>
-    <select class="form-control" asp-for="EstabelecimentoId" asp-items='@(new SelectList(@ViewBag.Estabelecimentos,"Id","Nome"))'></select>
+    <select class="form-control" asp-for="EstabelecimentoId" asp-items='@(new SelectList(@ViewBag.Estabelecimentos, "Id", "Nome"))'></select>
     <br>
     <label asp-for="GeneroId">Gênero musical</label>
     <select class="form-control" asp-for="GeneroId" asp-items='@(new SelectList(@ViewBag.Generos,"Id","Nome"))'></select>
@@ -39,3 +48,4 @@
     <br>
     <button class="btn btn-success">Atualizar</button>
 </form>
+
