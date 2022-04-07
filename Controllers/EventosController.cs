@@ -159,7 +159,7 @@ namespace DesafioMVC.Controllers
             {
                 return SalvarArquivoBanco(evento);
             }
-           return "default";
+           return "default.png";
         }
 
         private string AtualizarImagem(EventoDTO evento)

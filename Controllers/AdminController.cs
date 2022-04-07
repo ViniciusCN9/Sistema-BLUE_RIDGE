@@ -23,7 +23,7 @@ namespace DesafioMVC.Controllers
 
         public IActionResult Index()
         {
-            var eventos = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).ToList();
+            var eventos = Database.Eventos.Include(e => e.Estabelecimento).Include(e => e.Genero).OrderBy(e => e.Data).ToList();
             return View(eventos);
         }
 
