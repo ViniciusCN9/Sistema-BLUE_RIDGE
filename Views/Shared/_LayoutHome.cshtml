@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <partial name="_HeadPartial" />
-    </head>
-    <body class="limiter">
-        <div class="containerContent">
-            <div class="wrapContent">
-                @RenderBody()
-            </div>
+<head>
+    <partial name="_HeadPartial" />
+</head>
+<body class="limiter">
+    <div class="containerContent">
+        <div class="wrapContent">
+            @RenderBody()
         </div>
+    </div>
 
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>

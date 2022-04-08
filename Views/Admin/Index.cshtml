@@ -59,6 +59,8 @@
             </div>
         </div>
 
+        @* Barras de porcentagem *@
+        
         { 
             porcentagem = (Convert.ToDouble(ingressosVendidos) / Convert.ToDouble(@evento.Capacidade) * 100);
             exibirPorcentagem = (int)Math.Floor(porcentagem);

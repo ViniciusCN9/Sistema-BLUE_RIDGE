@@ -30,7 +30,8 @@ namespace DesafioMVC.Controllers
             {
                 IdentityUser user;
                 IdentityUserClaim<string> usuarioNome;
-
+                
+                //Busca e verifica se existe um usuário com o email informado
                 try
                 {
                     user = Database.Users.First(e => e.Email.Equals(usuario.Email));
@@ -40,6 +41,7 @@ namespace DesafioMVC.Controllers
                     user = null;
                 }
 
+                //Busca e verifica se existe uma claim "Name" com o nome informado
                 try
                 {
                     usuarioNome = Database.UserClaims.First(e => e.UserId == user.Id 
@@ -51,6 +53,7 @@ namespace DesafioMVC.Controllers
                     usuarioNome = null;
                 }
                 
+                //Altera a claim "Role" do usuário para "admin".
                 if (user != null && usuarioNome != null)
                 {
                     var usuarioAdmin = Database.UserClaims.First(e => e.Id == (usuarioNome.Id + 1));
@@ -82,7 +85,7 @@ namespace DesafioMVC.Controllers
                 usuarioAdmin.ClaimValue = "user";
 
                 Database.SaveChanges();
-                if(user.Id == usuarioAdmin.UserId)
+                if(user.Id == usuarioAdmin.UserId) //Se o usuário excluido estiver logado ele será deslogado
                 {
                     await SignInManager.SignOutAsync();
                     return RedirectToAction("Index", "Home");;

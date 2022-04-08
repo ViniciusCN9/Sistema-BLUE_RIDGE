@@ -8,6 +8,7 @@
     <partial name="_HeadPartial" />
 </head>
 <body>
+    <!-- ADMINISTRADOR -->
     @if (SignInManager.IsSignedIn(User) && User.HasClaim("Role", ("admin")))
     {
         <header style="flex: 1;">
@@ -52,6 +53,8 @@
             </main>
     </div>
     }
+
+    <!-- USUÁRIO -->
     else
     {
         <header style="flex: 1;">
@@ -87,6 +90,7 @@
             </main>
         </div>
     }
+
     <footer class="footer bg-dark text-white text-center" style="flex: 1;">
         <div class="container">
             &copy; Blue Ridge - 2022
